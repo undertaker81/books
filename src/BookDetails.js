@@ -1,33 +1,33 @@
 import React, { useState } from "react";
 import { Formik } from 'formik'
 import './BookDetails.css';
-import { customerYupSchema, toStandardTime } from "./validationTools";
+import { bookYupSchema, toStandardTime } from "./validationTools";
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import DatePicker from '@mui/lab/DatePicker'
 import { useHistory } from "react-router-dom";
 
 
-const BookDetails = ({ startingMode, customer: book, action }) => {
+const BookDetails = ({ startingMode, book, action }) => {
     const [mode, setMode] = useState(startingMode);
     const history = useHistory();
     let message = "";
     let inputProps = {}
     let hideID = false;
     if (mode === "view") {
-        message = `Pregled ${book.firstName} ${book.lastName}`;
+        message = `Pregled ${book.title} ${book.author}`;
         inputProps = { readOnly: true };
     } else if (mode === "edit") {
-        message = `Izmena ${book.firstName} ${book.lastName}`;
+        message = `Izmena ${book.title} ${book.author}`;
     } else if (mode === "create") {
-        message = "Kreiranje nove musterije";
+        message = "Postavljanje nove knjige";
         hideID = true;
     }
     return <div className="formContent">
         <h3>{message}</h3>
         <Formik
             initialValues={book}
-            validationSchema={customerYupSchema}
+            validationSchema={bookYupSchema}
             onSubmit={(values, { setSubmitting }) => {
                 const rez = action(values);
                 setSubmitting(false);
@@ -63,90 +63,110 @@ const BookDetails = ({ startingMode, customer: book, action }) => {
                     <TextField
                         fullWidth
                         margin="normal"
-                        name="firstName"
-                        label="Ime"
-                        value={values.firstName}
+                        name="title"
+                        label="Naziv knjige"
+                        value={values.title}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        error={touched.firstName && Boolean(errors.firstName)}
-                        helperText={touched.firstName && errors.firstName}
+                        error={touched.title && Boolean(errors.title)}
+                        helperText={touched.title && errors.title}
                         variant="outlined"
                         InputProps={inputProps}
                     />
                     <TextField
                         fullWidth
                         margin="normal"
-                        name="lastName"
-                        label="Prezime"
-                        value={values.lastName}
+                        name="author"
+                        label="Autori"
+                        value={values.author}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        error={touched.lastName && Boolean(errors.lastName)}
-                        helperText={touched.lastName && errors.lastName}
+                        error={touched.author && Boolean(errors.author)}
+                        helperText={touched.author && errors.author}
                         variant="outlined"
                         InputProps={inputProps}
-                    />
-
-                    <TextField
-                        fullWidth
-                        margin="normal"
-                        name="email"
-                        label="E-mail"
-                        value={values.email}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        error={touched.email && Boolean(errors.email)}
-                        helperText={touched.email && errors.email}
-                        variant="outlined"
-                        InputProps={inputProps}
-                    />
-
-                    <DatePicker
-                        margin="normal"
-                        name="birthday"
-                        label="Rodjendan:"
-                        value={values.birthday}
-                        readOnly={inputProps.readOnly ? true : false}
-                        onChange={(e) => {
-                            setFieldValue("birthday", toStandardTime(e));
-                            setFieldTouched("birthday", true, true);
-                            validateField("birthday");
-                        }}
-                        onBlur={handleBlur}
-                        renderInput={(params) => <TextField {...params} />}
-                    />
-                    <span>
-                        {(touched.birthday && Boolean(errors.birthday)) ? errors.birthday : ""}
-                    </span><br />
-                    <DatePicker
-                        margin="normal"
-                        name="joinDay"
-                        label="Datum pristupa:"
-                        value={values.joinDay}
-                        readOnly={inputProps.readOnly ? true : false}
-                        onChange={(e) => {
-                            setFieldValue("joinDay", toStandardTime(e));
-                            setFieldTouched("joinDay", true, true);
-                            validateField("joinDay");
-                        }}
-                        onBlur={handleBlur}
-                        renderInput={(params) => <TextField {...params} />}
-                    />
-                    <span>
-                        {(touched.joinDay && Boolean(errors.joinDay)) ? errors.joinDay : ""}
-                    </span><br />
-                    <TextField
-                        fullWidth
-                        margin="normal"
-                        name="address"
-                        label="Adresa:"
-                        value={values.address}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        error={touched.address && Boolean(errors.address)}
-                        helperText={touched.address && errors.address}
                         multiline
                         maxRows={4}
+                    />
+
+                    <TextField
+                        fullWidth
+                        margin="normal"
+                        name="genre"
+                        label="Zanr"
+                        value={values.genre}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        error={touched.genre && Boolean(errors.genre)}
+                        helperText={touched.genre && errors.genre}
+                        variant="outlined"
+                        InputProps={inputProps}
+                    />
+
+                    <DatePicker
+                        margin="normal"
+                        name="publishDate"
+                        label="Objavljena:"
+                        value={values.publishDate}
+                        readOnly={inputProps.readOnly ? true : false}
+                        onChange={(e) => {
+                            setFieldValue("publishDate", toStandardTime(e));
+                            setFieldTouched("publishDate", true, true);
+                            validateField("publishDate");
+                        }}
+                        onBlur={handleBlur}
+                        renderInput={(params) => <TextField {...params} />}
+                    />
+                    <span>
+                        {(touched.publishDate && Boolean(errors.publishDate)) ? errors.publishDate : ""}
+                    </span><br />
+
+                    <TextField
+                        fullWidth
+                        margin="normal"
+                        name="rating"
+                        label="Ocena:"
+                        value={values.rating}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        error={touched.rating && Boolean(errors.rating)}
+                        helperText={touched.rating && errors.rating}
+                        variant="outlined"
+                    />
+                    <TextField
+                        fullWidth
+                        margin="normal"
+                        name="isbn"
+                        label="isbn:"
+                        value={values.isbn}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        error={touched.isbn && Boolean(errors.isbn)}
+                        helperText={touched.isbn && errors.isbn}
+                        variant="outlined"
+                    />
+                    <TextField
+                        fullWidth
+                        margin="normal"
+                        name="available"
+                        label="dostupno:"
+                        value={values.available}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        error={touched.available && Boolean(errors.available)}
+                        helperText={touched.available && errors.available}
+                        variant="outlined"
+                    />
+                    <TextField
+                        fullWidth
+                        margin="normal"
+                        name="pages"
+                        label="stranica:"
+                        value={values.pages}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        error={touched.pages && Boolean(errors.pages)}
+                        helperText={touched.pages && errors.pages}
                         variant="outlined"
                     />
 
@@ -161,9 +181,9 @@ const BookDetails = ({ startingMode, customer: book, action }) => {
     </div>
 };
 
-CustomerDetails.defaultProps = {
-    customer: { "id": null, firstName: "", lastName: "", birthday: "", joinDay: "", email: "", address: "" },
+BookDetails.defaultProps = {
+    book: { "id": null, title: "", author: "", genre: "", publishDate: "", rating: "", isbn: "", available: "", pages: "" },
     startingMode: "view"
 }
 
-export default CustomerDetails;
+export default BookDetails;

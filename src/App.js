@@ -2,8 +2,8 @@ import AdapterLuxon from '@mui/lab/AdapterLuxon';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 
 import './App.css';
-import CustomerDetails from './CustomerDetails';
-import AllCustomersPage from './AllCustomersPage';
+import BookDetails from './BookDetails';
+import AllBooksPage from './AllBooksPage';
 import {
   BrowserRouter as Router, Link as RouterLink,
   Switch, Route, useHistory, Redirect,
@@ -17,9 +17,9 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
-import { addCustomer } from './accessHooks';
-import CustomerDetailsPage from './CustomerDetailsPage';
-import CustomerSearchPage from './CustomerSearchPage';
+import { addBook } from './accessHooks';
+import BookDetailsPage from './BookDetailsPage';
+import BookSearchPage from './BookSearchPage';
 
 import { useAuth, ProvideAuth } from './useAuth';
 import { Formik } from 'formik';
@@ -120,9 +120,9 @@ const LoginBox = () => {
   </div>
 }
 
-const AddCustomerPage = () => {
+const AddBookPage = () => {
   const [login] = useAuth();
-  return <CustomerDetails startingMode="create" action={(customer) => addCustomer(customer, login)} />
+  return <BookDetails startingMode="create" action={(book) => addBook(book, login)} />
 }
 
 function App() {
@@ -132,10 +132,10 @@ function App() {
         <Router>
           <div className="main">
             <nav className="mainNav">
-              <Button component={RouterLink} to="/allcustomers" variant="contained" sx={{ marginRight: "10px" }}>
+              <Button component={RouterLink} to="/allbooks" variant="contained" sx={{ marginRight: "10px" }}>
                 Sve musterije
               </Button>
-              <Button component={RouterLink} to="/searchcustomers" variant="contained">
+              <Button component={RouterLink} to="/searchbooks" variant="contained">
                 Pretraga
               </Button>
               <span style={{ flexGrow: 1 }} />
@@ -146,17 +146,17 @@ function App() {
                 <Route path="/login">
                   <LoginBox />
                 </Route>
-                <PrivateRoute path="/allcustomers">
-                  <AllCustomersPage />
+                <PrivateRoute path="/allbooks">
+                  <AllBooksPage />
                 </PrivateRoute>
-                <PrivateRoute path="/searchcustomers">
-                  <CustomerSearchPage />
+                <PrivateRoute path="/searchbooks">
+                  <BookSearchPage />
                 </PrivateRoute>
-                <PrivateRoute path="/customer/new">
-                  <AddCustomerPage />
+                <PrivateRoute path="/book/new">
+                  <AddBookPage />
                 </PrivateRoute>
-                <PrivateRoute path="/customer/:cid/:operation">
-                  <CustomerDetailsPage />
+                <PrivateRoute path="/book/:cid/:operation">
+                  <BookDetailsPage />
                 </PrivateRoute>
                 <Route path="/">
                   <h1>Primer integrisanog sajta</h1>
