@@ -28,7 +28,7 @@ const AllBooksPage = () => {
         return <h3>Loading...</h3>;
     } else {
         return <div>
-            <Button component={RouterLink} to="/book/new" variant="contained">Dodaj</Button>
+            <Button className="dodavanje" component={RouterLink} to="/book/new" variant="contained">Dodaj</Button>
             <BookList list={list} onDelete={(id) => {
                 deleteBook(id, login);
                 reload();

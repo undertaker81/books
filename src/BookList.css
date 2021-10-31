@@ -1,0 +1,18 @@
+.card{
+  border: 2px solid black; 
+  padding: 5px; 
+  margin-left: 5px;
+  margin-top: 5px; 
+  margin-bottom: 5px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.knjizice{
+  display: grid;
+  grid-row: 3;
+  grid-column: 2/span2;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  width: 100%;
+  border: solid black;
+}

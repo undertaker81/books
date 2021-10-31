@@ -25,6 +25,8 @@ import { useAuth, ProvideAuth } from './useAuth';
 import { Formik } from 'formik';
 import { TextField } from '@mui/material';
 
+import { ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
+import 'react-pro-sidebar/dist/css/styles.css';
 
 
 const AuthButton = () => {
@@ -131,16 +133,35 @@ function App() {
       <ProvideAuth>
         <Router>
           <div className="main">
+            <div className="zaglavlje">
+              <h1>Moja knjizara</h1>
+            </div>
+            <div className="meni">
+              <ProSidebar>
+                <Menu iconShape="square">
+                  <MenuItem></MenuItem>
+                  <SubMenu title="Zanrovi knjiga">
+                    <MenuItem>Science Fiction</MenuItem>
+                    <MenuItem>Fantasy</MenuItem>
+                    <MenuItem>Computing</MenuItem>
+                    <MenuItem>Mystery</MenuItem>
+                    <MenuItem>Horror</MenuItem>
+                  </SubMenu>
+                </Menu>
+              </ProSidebar>;
+            </div>
             <nav className="mainNav">
               <Button component={RouterLink} to="/allbooks" variant="contained" sx={{ marginRight: "10px" }}>
-                Sve musterije
+                Sve knjige
               </Button>
-              <Button component={RouterLink} to="/searchbooks" variant="contained">
+              <Button component={RouterLink} to="/searchbooks" variant="contained" sx={{ marginRight: "10px" }}>
                 Pretraga
               </Button>
               <span style={{ flexGrow: 1 }} />
               <AuthButton></AuthButton>
             </nav>
+
+
             <div className="mainContent">
               <Switch>
                 <Route path="/login">
@@ -159,14 +180,14 @@ function App() {
                   <BookDetailsPage />
                 </PrivateRoute>
                 <Route path="/">
-                  <h1>Primer integrisanog sajta</h1>
                 </Route>
               </Switch>
             </div>
+
           </div>
         </Router>
       </ProvideAuth>
-    </LocalizationProvider>
+    </LocalizationProvider >
   );
 }
 

@@ -19,7 +19,7 @@ export const usePagedBookList = (initialPageSize, url = "http://localhost:3081/a
         })
             .then(resp => resp.json())
             .then(data => {
-                if (data.status == "ok") {
+                if (data.status === "ok") {
                     setLength(data.body.length);
                     setList(data.body.results);
                     setLoading(false);
@@ -115,7 +115,7 @@ export const usePagedSearchBookList = (initialPageSize, query, url = "http://loc
         })
             .then(resp => resp.json())
             .then(data => {
-                if (data.status == "ok") {
+                if (data.status === "ok") {
                     setLength(data.body.length);
                     setList(data.body.results);
                     setLoading(false);
@@ -210,7 +210,7 @@ export const usePagedSearchBookByAuthor = (initialPageSize, query, url = "http:/
         })
             .then(resp => resp.json())
             .then(data => {
-                if (data.status == "ok") {
+                if (data.status === "ok") {
                     setLength(data.body.length);
                     setList(data.body.results);
                     setLoading(false);
@@ -322,7 +322,7 @@ export const addBook = async (book, login, url = "http://localhost:3081/app/book
     else return [false, data.body]
 }
 
-export const useBook = (id, url = "http://localhost:3080/app/book") => {
+export const useBook = (id, url = "http://localhost:3081/app/book") => {
     const [book, setBook] = useState(null);
     const [loading, setLoading] = useState(true);
     const [login] = useAuth();
